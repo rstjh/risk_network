@@ -1,0 +1,35 @@
+from ,to,label,length,smooth,dashes,LINK.TYPE,WEIGHT.LINK,label.from
+1,2,AD1,100,TRUE,FALSE,network,,Azure_Gateway
+1,3,AD2,100,TRUE,FALSE,,,Azure_Gateway
+1,4,Fileshare,100,TRUE,FALSE,,,Azure_Gateway
+1,5,Print_Server,100,TRUE,FALSE,,,Azure_Gateway
+1,6,AV_Server,100,TRUE,FALSE,,,Azure_Gateway
+1,7,VEEAM_Backup,100,TRUE,FALSE,,,Azure_Gateway
+1,17,Web_Server1,100,TRUE,FALSE,,,Azure_Gateway
+1,18,Web_Server2,100,TRUE,FALSE,,,Azure_Gateway
+1,19,Business_Server1,100,TRUE,FALSE,,,Azure_Gateway
+1,20,Business_Server2,100,TRUE,FALSE,,,Azure_Gateway
+1,21,Business_Server3,100,TRUE,FALSE,,,Azure_Gateway
+1,22,Bastion_JUMP_Server,100,TRUE,FALSE,,,Azure_Gateway
+1,23,SQL_Server1,100,TRUE,FALSE,,,Azure_Gateway
+1,24,Service_Server,100,TRUE,FALSE,,,Azure_Gateway
+8,1,Azure_Gateway,400,FALSE,FALSE,,,WAN_Netowrk
+8,13,HO_Gateway,200,FALSE,FALSE,,,WAN_Netowrk
+8,9,Internet Gateway,200,FALSE,FALSE,,,WAN_Netowrk
+8,33,Pharmacy_Gateway,200,FALSE,FALSE,,,WAN_Netowrk
+13,14,Printers,100,TRUE,FALSE,,,HO_Gateway
+13,15,Laptops,100,TRUE,FALSE,,,HO_Gateway
+13,16,Mobiles,100,TRUE,FALSE,,,HO_Gateway
+33,26,ePOS Platform,100,TRUE,FALSE,,,Pharmacy_Gateway
+33,27,Third Party Platform,100,TRUE,FALSE,,,Pharmacy_Gateway
+33,28,Pay_Gateway,100,TRUE,FALSE,,,Pharmacy_Gateway
+33,29,Store_Destop,100,TRUE,FALSE,,,Pharmacy_Gateway
+33,30,ERP_Scanner,100,TRUE,FALSE,,,Pharmacy_Gateway
+33,31,Shop_WiFi,100,TRUE,FALSE,,,Pharmacy_Gateway
+33,32,Mobile_App,100,TRUE,FALSE,,,Pharmacy_Gateway
+9,25,eCommerce_Server,100,FALSE,FALSE,,,Internet Gateway
+12,1,Office 365,300,FALSE,FALSE,,,Azure Gateway
+12,9,Office 365,300,FALSE,FALSE,,,Internet Gateway
+10,13,WiFi,100,FALSE,FALSE,,,HO Gateway
+11,10,Mobile Wifi,200,FALSE,TRUE,,,
+11,9,Internet Gateway,200,FALSE,TRUE,,,
