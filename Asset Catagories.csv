@@ -1,0 +1,18 @@
+﻿Location,Category,,Sub Category
+On Premise,Enterprise,,Application
+On Premise,Facilities,,Business Process
+Cloud/On Premise,Hybrid,,CRM
+Cloud,IaaS,,Data 
+Cloud,PaaS,,Data Store
+On Premise,People,,Device
+On Premise,Physical Location,,Financial Application
+On Premise,Pobal Programmes,,Hardware
+Cloud,SaaS,,Hypervisor
+On Premise,SDLC,,Manual Process
+On Premise,System,,Network
+Remote,Third Party,,Office Location
+System,Gateway,,Platform
+,,,Staff
+,,,Security Product 
+,,,Service
+,,,Source Code
