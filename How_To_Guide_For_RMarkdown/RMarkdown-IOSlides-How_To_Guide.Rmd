@@ -1,0 +1,127 @@
+---
+title: slideshow Fun
+author: Jared P. Lander
+output:
+    ioslides_presentation:
+      logo: ~/github-repositories/risk_network/How_To_Guide_For_RMarkdown/ShinyLogo.jpg 
+      widescreen: yes
+      self_contained: yes
+runtime: shiny
+---
+
+```{r, setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+## IOSlides
+R Markdown is an excellent way to create attractive presentations.
+
+- The finished product is an HTML file so it can be opened in a browser and use the full power of HTML and JavaScript. 
+- We write reproducible R code that generates a slide show and then we incorporate Shiny to make the presentation interactive.
+
+## HTML5 Presetations
+IOSlides is a great way to make HTML5 presentations that display beautifully in the browser using R Markdown. This is just like any other R Markdown file, it's just a different output type. So lets create a new file and build the YAML header to get started. Control + Shift + N to start a new file. Lets save it. We will call this Slides.Rmd. You probably want to choose a better name. Again, it's asking us, "Do we want to convert?" We say "yes." 
+
+## YAML Header
+Like every other Markdown file, we start with a YAML header, so we give three dashes and close the three dashes. We start with the title. This will be slideshow fun. We give an author, Jared P. Lander. You could put a date, though I generally recommend not to put dates on presentations because you'll end up reusing it. We set the output to be IOSlides presentation. Since we want to provide additional arguments to IOSlides presentation, it has to go on the next line and be indented. We say IOSlides_presentation, and we are providing more arguments so we put a colon, drop to the next line, and indent again. 
+
+## Logo
+We can specify a logo to be displayed on the title slide by saying logo: the name of the file. Our file happens to be in the root directory, so we say logo.png. We also want to display our slideshow in widescreen format, and we set it to be self-contained so that way if you want to send someone the slideshow, you only need to send one file, no supporting files. There are other options you can set such as additional CSS, or files to put in the header, but this'll be good for now. It's also a good idea to set global options. 
+
+## Global Presentation
+If you're giving a presentation to a global audience, you most likely don't want to be showing the code, so you should set echo equals false. But if this is an instructional presentation, you might want to show the code. There are many other options you might want like cacheing your chunks or centering your images, but for now we're just going to say echo equals false. 
+
+## Global Presentation Setup
+We create a new trunk using a snippet, so we type R, then Shift + Tab. We call it setup, and we set include=FALSE because I want neither this code, nor any results to be printed. We say:
+
+`knitr::opts_chunk $set(echo=FALSE)`. 
+
+Lets knit the document with `Control + Shift + K`, and see how it looks. We have this nice presentation with our logo in the corner, the title, and the author name. There's only a title slide for now, but this is a good start to making attractive presentations.
+
+## Build a Full Presentation
+With our header and global options set, we can now start adding slides. By default, R Markdown and ioslides use Level Two headings to indicate a new slide. We make our first slide with double hashtags, and we'll call it Fruit. We use ordinary markdown to generate content. Let's create a list of fruit. We create a list with a dash and a space, say 
+
+- apples, then 
+- bananas, then 
+- kiwis. 
+
+Let's knit the document and see how our slideshow works. It looks a little weird because our browser is not expanded, so let's make it full screen. And we see it says apples, bananas and kiwis. If we use our keyboard to go left, we see our title slide. If we come right, we're at this slide. 
+
+## Widescreen Mode
+It's currently in widescreen mode. We could hit the W key to get out of widescreen, but, thanks to our YAML heading, widescreen is the default. Let's go ahead and make another slide. 
+
+## Graph Slide Preamble
+We create the new slide with two hashtags, and we'll call it Graph Slide. First we need to load data, so let's make that its own chunk. 
+
+We call the chunk Load Data. And here, we will first load the ggplot package, then we will load the diamonds data from within there. 
+
+Then in a separate chunk, we will make a histogram. And we will call the chunk hist. It's a good idea to have your chunks isolated. 
+
+Let's say in the previous chunk, we had to read in a lot of data, and it's been cached, then the next chunk we plot it. 
+
+If we go and change the plot, it's only going to redo the chunk with plot. But if you're reading the data and plotting in the same chunk, you change the plot, it has to read in the data all over again. 
+
+Same goes for complicated expressions or any operation that might take a while to run, it's good to have your chunks fairly isolated. 
+```{r}
+
+```
+## Graph Slide
+
+```{r load-data}
+library(ggplot2)
+data(diamonds)
+```
+
+```{r hist,message=FALSE,fig.align='center'}
+ggplot(diamonds, aes(x=price)) + geom_histogram()
+```
+
+Let's go ahead and build this histogram. Ggplot with diamonds, aes, x equals price, close both parenthesis, plus geom underscore histogram. Let's render our document. And we see we have a slide with a plot and with a message 'cause some ggplot functions put out messages. We most likely do not want that message there. So let's get rid of it. There is a chunk option which says do not show messages. That is simply message equals false. Looking at the document again, and that message no longer appears. Notice, however, our figure is left aligned. We would like it to be centered, so it looks a little more attractive. We come back up to the chunk options and we say fig dot align equals center. Let's knit the document again. It's now centered and looks much better. It is really quite easy to make vibrant slideshows using R Markdown. We've just scratched the surface and haven't customized it, but it's entirely possible to pass in elaborate CSS to make this look like a beautiful presentation. It's all made simple thanks to R Markdown and ioslides.
+
+## Add Speaker Notes
+
+When giving a presentation, it is often helpful to have speaker notes that you, the speaker, can see on your screen but the audience does not see on their screen. To do this, we will come to the bottom of one of our slides and put a little bit of HTML. You will say div class equals notes.
+
+<div class='notes'>
+Let's close the div so we don't forget to do it. You can use any valid markdown in this div to display a note to yourself, such as a list. This is a note to the speaker. The audience won't see it. Let's go make a similar note on our second slide. Div, class equals notes. End close the div. And here we will just describe the slide and say it is the histogram of diamond prices. That's it. That's all we have to do to get notes. 
+
+Let's render the document. To see this in action, it's better if we open it up in a browser such as Chrome. We now have our slideshow open in Chrome. We can make the slideshow full screen by hitting the f key. And then if we want to, we can zoom in and out with control plus and control minus to make it fill the screen as necessary. You can use our arrow keys to scroll through it. And it's a fully working slideshow. But we really want to see the presenter notes. So let's exit full screen. Go to the URL and after the file name Slides.html, type in question mark presentme equals true. And we get a new window. 
+
+Depending on your browser settings, you might get a message that pop-ups are blocked, you just have to allow pop-ups for this file. Let's expand this. We won't make it full screen, because I wanna see both windows at the same time. And we can see it looks like the same file. Let's zoom out a little bit. But now, if we hit p, this becomes presenter notes. We can see our current slide, which is the title slide, the next slide, and underneath there would be notes if there are any. Let's hit the right arrow key. You can see that both windows advance the slide. 
+
+The audience slide shows the full slide, whereas the presenter notes shows the current slide, the next slide, and the notes. Let's go forward to the next slide. The current slide, there is no future slide since this is the end, and the notes. You can go back and forth, and the slideshows stay in sync. Let's close the presenter window, and open up the file again. The slideshow pops up again. This setting, presentme equals true, is sticky. That means, it's going to stay the same way. 
+
+If you are sending this file to somebody and you don't want the notes popping up automatically, you should go back to the URL, and set presentme equals false. This way, the notes won't pop up every single time. You have to now explicitly ask for them to pop up. Let's show them one more time just to be certain. It's that easy to have a slideshow with the current slide, the future slide and notes. This allows ioslides to be a full feature presentation that gives you, the speaker, confidence when you're onstage.
+</div>
+
+## Using Shiny in IOSlides
+
+Much like other R Markdown formats, we can set the runtime for this document to be Shiny, That means we can have a slide show advancing one side at a time that has Shiny running and enables us to take advantage of the full power of R all within a slide show. The first step is to go to the YAML header and set the runtime to Shiny. This is on the same level as title, author, and output, so make sure we get the indenting right and that is no indent in this case. We say runtime: shiny. 
+
+## Shiny App
+
+```{r hist-2,message=FALSE,fig.align='center'}
+possible <- names(diamonds)[sapply(diamonds, is.numeric)]
+selectInput(
+  inputId='selCol',
+  label='Choose a column',
+  choices=possible
+)
+renderPlot(
+  ggplot(diamonds, aes_string(x=input$selCol)) + geom_histogram()
+)
+```
+
+
+<div class='notes'>
+To show it in action, let's go down to our plot. Let's create a dropdown that allows you to select the numeric columns of diamonds and then renders a plot based on that selection. So let's first make a vector of the possible columns. We will call it possible. It gets the numeric columns, so we can't just say names of diamonds because that would be all the columns. We need to subset those names. So we do start by saying names of diamonds, but then we will use square bracket subsetting. In here, we will run sapply of diamonds is.numeric. We say sapply of diamonds, and the function we are running is is.numeric. Let's break this down a little bit at a time. Let's take a look at names of diamonds. It is a character vector of the names of the columns. 
+
+Let's run sapply(diamonds, is.numeric). We run that, we get a vector of trues and falses. Columns that are numeric get TRUE. Columns that are false, columns that are numeric get TRUE. Otherwise, they get FALSE. Since this is a vector of trues and falses of equal length to the names, we can then subset the names using square brackets. Let's run the whole line of code and then take a look at possible. It is now carat, depth, table, price, x, y, z. Only the numeric columns. Let's clear out the console and make a selectInput. We type in selectInput and let's close the parentheses now. The inputId is SelCol. 
+
+The label will be Choose a column. And the choices will be possible. That way, it is only the numeric columns. Now that we have built our selectInput, let's convert the ggplot expression to plot the column we choose. Remember, we have to wrap it in renderPlot so that it will be reactive and display in Shiny properly. We say renderPlot. We open the parentheses, we put the ggplot expression on the next line, and let's close off renderPlot. We're using aes to set the column to be plotted. Because our selectInput will return a character, we should use aes_string instead. We no longer wanted to plot price. 
+
+We wanted to plot whatever column is selected, so we use input$SelCol. We are now ready to render this slide show and see Shiny in action. We use Control + Shift + K to knit it. We notice it isn't quite fitting the screen. That's okay for now. We can easily customize that. The important part is seeing that the graph changes as we change our selection. With just a few modifications, we have turned our slide show into a Shiny app. 
+
+It's still in slide show format, so you can get on stage and advance through the slides but if you want to fire up a complicated R expression, you can, all from within that slide show. It does not generate an HTML file because it is serving a temporary file. That is a limitation we can live with to have the full power of R inside of our slide shows. Just like that, you can have a fully interactive slide show using R and R Markdown together.
+</div>

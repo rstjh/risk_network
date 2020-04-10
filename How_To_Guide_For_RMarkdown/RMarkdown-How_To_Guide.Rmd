@@ -1,0 +1,567 @@
+---
+title: Simple Shiny
+author: Jared Lander
+output: 
+    html_document:
+      number_sections: true
+      toc: true
+      toc_depth: 3
+      toc_float: 
+          collapse: false
+          smooth_scroll: true
+      code_download: true
+#     df_print: "kable" #if this is used then all dataframes are printed in kable format.
+      df_print: "paged" #if this is used then all dataframes are printed in paged format.
+#   pdf_document:
+#      number_sections: true
+#      toc: true
+# As of 10th April 2020 The latexpdf package does not work with r 3.6.3
+runtime: shiny
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(cache = TRUE, fig.align = 'center')
+
+if (!require("ggplot2")) {
+  install.packages("ggplot2")
+  library(ggplot2)
+}
+if (!require("knitr")) {
+  install.packages("knitr")
+  library(knitr)
+}
+if (!require("lubridate")) {
+  install.packages("lubridate")
+}
+if (!require("ShinyTester")) {
+  install.packages("ShinyTester")
+}
+```
+
+```{r, include=FALSE}
+options(tinytex.verbose = TRUE)
+
+```
+
+
+#Thanks
+Thanks goes to Jared Lander for teaching me Rmarkdown and Shiny
+
+# Learning Objectives
+Markdown is an excellent tool for writing documents. It enables us to focus on content and not be distracted by design. Highly flexible, it can render into elegant HTML files, professional PDFs, editable Word documents, web slide shows and more. We learn the basic structure of Markdown documents and how easy it is to write page after page.
+
+# RMarkdown
+This is a document about R markdown and how to use it.
+
+## Test Formatting
+
+_italic_
+
+__bold__
+
+___italic and bold___
+
+# Create a new File
+Once we have a RStudio project such as Shiny LiveLessons. we can go ahead and create an R markdown file. We could go ahead and click file, new file, R Markdown. That puts a bunch of template code that we don't want. 
+
+## control shift N (Create a new file)
+So instead, we are going to use our keyboard and hit control shift N. This creates a new file. We can see down here that it is an R Script. By default when you create a new file, RStudio automatically makes it an R Script. So we will save this as an R Markdown file. 
+
+## Control S (file explorer)
+We hit control S and this brings up the file explorer. First we'll create a new folder called markdown. Within there we will name this file RMarkdown.Rmd. The file extension Rmd tells RStudio how to use this file and treat it differently than an ordinary R file. When you click save, it asks you if you really want to convert this from an R file to another type. And this case we do so, we click yes. And we see that the file type has been changed to RMarkdown and some of the buttons at the top have been changed to make it more convenient to work with RMarkdown files. Now that we have his file we are ready to go.
+
+# Set up YAML Header
+The very top of an R Markdown file is the YAML metadata. YAML stands for Yet Another Markup Language, and provides metadata about the file. We delineate the YAML portion of the document by starting the block with three dashes and ending the block with three dashes. So we'll put those in. 
+
+## Three dashes
+And in between, we'll put all the identifying information about the document, such as the title, the date, the author and the output format. YAML works with key-value pairs, 
+
+## Title
+so for the title, we put title, colon, and a single space RMarkdown Primer. For the author, we put our name. In this case, Jared P. Lander. You can put the date as another tag if you want to stamp a time onto your document, but other times, you won't want to, so you put that as an optional field. Another important field is the output. 
+
+## Output
+Now this isn't quite simple text like the previous ones. You write output colon, the value we supply to output is an R function. You write it in plain text, but it gets interpreted as an R function. In our case, we're making an HTML document, so we use the function HTML underscore document. Since this function is available in the R Markdown package, we don't need to specify the package it's coming from. 
+
+## Knit the document (Control Shift K)
+Now that we have some metadata set up, we will knit the document to see how it looks. We can do that by clicking the knit button at the top of the text editor, or as the tool tip indicates, we can use the keyboard and do control shift k. So let's run this and see what it looks like. We get a little pop-up in the R Markdown tab, telling us it's being knit, and we get a pop-up showing us our bare-bones document. We see the title, RMarkdown Primer, and we see the author.
+
+## Display in viewer window
+This window is actually a stripped-down web browser. We do have the option of opening the file in your default browser. To make things easier going forward, rather than having a document pop-up in new window, we are going to have it display in the Viewer Pane. So we switch back to the editor, and we come to this little gear icon and the dropdown arrow next to it. We click Preview in Viewer Pane. So for now, when we knit the document, It will show up here in the Viewer Pane, which is a little browser built right into RStudio.
+
+# Lists
+Writing lists can often be a tedious task when using a typical word processor or even HTML or Laytech. Markdown really tries to make that much easier. We are gonna create a new section called lists, and there are multiple types of lists. 
+## Unordered lists
+You can have unordered lists where it's just bullet points or other symbols. And you can have ordered lists where they're ordered by numbers or even letters. We will start with unordered lists. So we'll create a subsection called unordered lists. We create an unordered list by putting each element of the list on it's own line starting with either a dash or an asterisk and a space. Typing a dash is easier than typing an asterisk because you don't require the shift key, so that's what we will go with. So as a simple list let's just list a few fruit. We start with a dash and a space, and we write apples. Then on the next line, dash, space, bananas. Then oranges, and kiwis. We can now knit the document and we see at the bottom we have our section called lists, unordered lists subsection, and a nice bold point list of all of our fruit. It's really that simple to make an unordered list. 
+- apples
+- bananas
+- oranges
+- kiwis
+
+
+## Ordered lists 
+They are similarly easy. In fact easier here than it is in another setting. So we create another subsection called ordered lists. And we can make a numbered list or a lettered list. So let's start with numbered list. To be really organized we will make this a sub subsection, so that is three hashtags. Numbered lists start each line with a number then a period, and then the space. It should always be the same number for simplicity, that way we don't need to manually re-number things. So for our list we're gonna rank pizza in terms of quality according to their geography. So we start with the number one, period, and we put New York. Then, our second item also starts at number one, period, we'll say New Jersey. Our third item could be number one, period, Connecticut. And our fourth item, we'll put Detroit. They all start with the number one in our text, so let's see what happens when we knit the document. We scroll down to the bottom of our document, and we see our list has been automatically numbered for us, one, two, three, four. Even though all of our points started with the number one, it automatically creates the ordering for us. This comes in very handy if we want to change the ordering or insert a new item. For instance let's say after New Jersey, we want to insert Naples. So come to Jersey, make a new line, put in one, period, and type in Naples. When we knit the document now, Connecticut will automatically become number four, and Detroit will automatically become number five. We have now saved ourselves the headache of having to renumber the list manually. If we wanted to use a lettered list instead of a numbered list, that is equally easy. You create a new sub subsection with three hashtags. And for our list items instead of using the number one, we use the letter A. For this example we will list different types of fuel to power a pizza oven. We start with letter A, period, space, and we type in coal. Then A, period, space, wood. Then A, period, space, gas. Let's knit the document and see how this looks. We scroll to the bottom of our document, and we see we now have it in order A, B, and C. Sometimes we want to have a nested list where you have a natural indentation to the list.
+
+### numbers {#TheList}
+1. New York
+1. New Jersey
+1. Naples
+1. Conneciticut
+1. Philadelphia.
+
+### letters
+a. New York
+a. New Jersey
+a. Naples
+a. Conneciticut
+a. Philadelphia.
+
+### nested
+Let's create another subsection called nested lists. And here let's start with an ordered list listing locations. Within some of those, let's have a sub-list that is a lettered list and if we want within there we can even have a unordered nested list. So let's start with one, New York, and within New York, let's list the different types of fuel. We hit the tab key to indent and we can now do a lettered list using A. So we say A, period, space, Coal. Then we will say wood. Then we will say gas. Let's say within gas we wanna indent another level further and have an unordered list naming a few manufacturers, we simply hit the Enter key, tab again, and we use dashes. We will say Baker's Pride and Bari. 
+
+1. New York
+    a. Coal
+    a. Wood
+    a. Gas
+      - Baker's Pride
+      - Bari
+    a. Electric
+1. New Jersey
+1. Naples
+1. Conneciticut
+1. Philadelphia
+
+So now we're done with this nested list and wanna go back to the types of ovens, so we hit Enter, and we go back an indentation level, put back in A, and we'll say electric. Now that we're done listing oven types, we wanna go back to listing locations, hit Enter, go back to the original indentation level and continue. We'll say one, period, New Jersey. Then we will say one, period, Philadelphia. We decided to add Philadelphia to the list because they do have good tomato pies. Then one more entry for Detroit. We knit the document again, we scroll to the bottom, and we have this list which combines ordered numbers, ordered letters, and even an unordered section. Writing lists in Markdown really frees us from having to figure out how to do the ordering, if we got it right, and makes it easier to change things up. It is so much simpler in Markdown than it is in other tools.
+
+# Create Links 
+As markdown can be used as a simplified version of html it has the ability to create links. So we'll create a new section called links. And we will make a link to my website. The text of the link goes inside of square brackets. So we'll say my website. Close the square bracket, then the destination of the link is enclosed in attached parenthesis. In here we will put www.jaredlander.com. We knit this and we see we have a hyperlink. We click this and that will take us to jaredlander.com. Links can also be used for linking to different parts of the document. Let's say we go to the lists section of our document. And after the text we put some meta information inside of curly braces. Inside there we will give this section an ID. 
+
+In CSS an ID is denoted with a hashtag. This is a different hashtag than what creates the section, this creates an ID, and we will call this, the lists, one word. This now becomes the ID for the section. Now we can come back down to our links section. Create a new line and we'll create a link that says check out the pizza section. And for the location you will put hashtag the lists. We knit the document. We scroll to the bottom, we can click this link, and it'll take us up to the lists section. Of course this document isn't very big so we didn't have very far to jump. So it might not appear that it moved that much. But if we scroll down again and click the link, then we can see it does take us there. This is very helpful when you have larger documents and you want to create links to different sections. Like many things in markdown. Creating links is quite simple and just requires knowing a little bit of the syntax.
+
+# links
+[Show how to display tab indent guidelines](https://support.rstudio.com/hc/en-us/articles/200549016-Customizing-RStudio)
+
+[Check out the pizza sections](#TheList)
+
+# LaTeX
+
+Writing math in Markdown is done using LaTeX-style notation. So let's create a new section. We'll call it math. And an equation is demarcated by a starting double dollar sign and a closing double dollar sign. For ease of reading, we will indent. And here we can use standard LaTeX math. For this example, let's write the formula for an average, x bar equals the sum of i equals 1 to n of xi over n. To create the bar, we put slash bar. Then, in curly braces, we put the symbol that we want to have a bar over it. 
+
+A nice feature of R Markdown is that Rstudio gives a preview of the equation you're typing right beneath it. So that way, you don't need to knit the whole document just to see how your equation is going. So we say x bar equals sum. In LaTeX, you create the sum symbol by saying slash sum. We can see here, we have that nice big sigma. To put i equals 1 underneath it, we use an underscore. Anything we put just to the right of the underscore goes underneath the sum symbol, for instance, i. But if we want more than just one letter, we need to enclose it in curly braces. So after the underscore, we put a curly brace, and we say i equals 1 and close the curly brace. We now see it says i equals 1. And we want the summation to go until n. So still attached to the sum operation, we put the caret and the letter n. We now see the summation symbol complete. We are summing a fraction. 
+
+In LaTeX, that is done with slash Frac. The first set of curly braces has the numerator. The second set of curly braces has the denominator. Our numerator is x sub i. So we put x underscore i. And our denominator is n. We now have this equation nicely written out. We knit this to see how it looks in the document. We scroll down to the bottom and we see this nice equation rendered by default using MathJax. It's also possible to have inline equations. We hit enter a couple times. That made our preview disappear. We could be typing a sentence, such as, "Inline equations look like" and then, you put your math in between two dollar signs. There can't be any spaces between the dollar signs and the start and end of the equation. We're just simply going to put the equation y equals mx plus b. We say y equals mx plus b, and we even get a little preview here. Notice that the dollar sign is touching the y and the closing dollar sign is touching the b. We put a period at the end of it, just to finish our sentence, and we knit the document. When we're done knitting, we come to the bottom and we see an equation at the end of that sentence. In Markdown, you can use the entire power of LaTeX math to write any arbitrarily complex equation you would like.
+
+# Maths
+
+$$
+    \bar{x} = \sum_{i=1}^n\frac{x_1}{n}
+$$
+
+Inline equatios lool like $y = mx + b$ or $\bar{x} = \sum_{i=1}^n\frac{x_1}{n}$.
+
+# Use Sections
+Markdown and Rmarkdown documents are structure documents. That means they're well suited for sections, subsections, and organized content. The idea is for you to focus on the content and not so much the layout, as long as you keep it organized. Creating sections in our markdown documents is quite easy. To create a section, which is a level one heading, we use a single hashtag also called a hash or a pound symbol. The text we type here is going to be the text used for the section name. So we will just type, "Level one heading." After we make the section heading we can just type ordinary text. For instance we can say, "This is a sentence. Any text here gets rendered as normal text." To create a new paragraph, we simply leave a blank line. We can see, "A blank line creates a new paragraph still in the same section." 
+
+## Render
+We can now knit or render this document by hitting CTRL + SHIFT + K on our keyboard and see how it comes out. We now have new text with the level one heading which in HTML is an H1 tag and our text written beneath it. So now we are ready for another section. We don't actually close the first section, we just start another section. So we put in a single hashtag and we will call this another level one heading. And underneath that we will just type in, "More text." So we can see something is there. And we knit it again by hitting CTRL + SHIFT + K. And we see we have another section. Now we want a subsection underneath this section. This is done by using two hashtags. We will call this level two heading. And we will put in a little more informative information saying, "This is a subsection under the level one heading." This is a subsection under the level one heading. Now we knit this, and we can see that level two heading looks a little smaller. It's hard to tell in this font, but it is indeed a H2 tag in HTML and this is the text underneath it. We are now ready for another level one section, so without closing level two, we just start a new level one. And we will call it, "Back to level one." And we will write that, "This starts a new section." We knit it again, and we are back to a level one heading. It might be a little hard to see this font, but organizationally it makes a big difference, and depending on your CSS styles, it can make a dramatic visual impression as well. Creating sections in markdown is incredibly simple. For a section you use one hashtag, for a subsection you use two, for a sub-subsection you use three, and so on. This makes writing mark down documents incredibly quick and easy to do.
+
+## Weaving code together
+Weaving together R code with with Pros has been a hallmark of scientific writing in R for many years thanks to Sweave and knitr. Now with R markdown, it is easier than ever before. We go over the necessary steps to integrate R code into markdown documents for easy blending of results and explanations.
+
+## Footnotes
+
+We^[placed this foot note here] are learning markdown^[Markdown is a simple way of writing doucments] on our way to learning RMarkdown.
+
+# Code Chunks
+
+A major ability of R Markdown is integrating R code into the rest of the normal text. This is done using code chunks. So let's go to the bottom of our document and create a new section called Simple Code. The section is started with a single hashtag and then we type the name we want. 
+
+```{r - this-label}
+1 + 1 
+1+1
+4*2
+5 - 3
+```
+
+
+Code chunks are delineated by three backticks, an opening curly brace, the letter r, then closing curly brace, and they are closed with three backticks. These are backticks. They're on the key that also has a tilde and it's usually underneath the Escape key on a keyboard. You can see R Markdown change the color of the background for our chunk and we can see we have a few more option buttons here. 
+
+## Chunk Labels
+It is generally good practice to put a label in your chunk. So after the r, put a space, and give it a label such as this-label. This wasn't a particularly informative label but it's just for illustration purposes. In this code chunk, we can type in any R code such as one plus one. We could run the R code right now in the console or we can knit the document and have both the code and the results be printed. So, Control + Shift + K to knit the document. We can use the table of contents to go to our new section and we see there that we have the line of code followed by the results of the code. And of course, all of our footnotes from before. The code by default in R Markdown is not printed preceded by the angle bracket symbol that you would use to denote a console. And the results are preceded by two hashtags to create a comment. This way, you could copy and paste the code right into an R console without having to delete anything. Really makes it easy to use. Typing in the chunk delimiters could be cumbersome, so luckily, there are shortcuts to do it for us. 
+
+## Code Chunk creation CTRL+ALT+I
+In RStudio, hitting Alt + Control + I generates a code chunk. In here, you can put any more codes you want such as four times two. It is a good practice to label it, so we will label it multiplication. Beneath the document now, we should get another code chunk showing four times two, with eight as the result. Here we have it. RStudio also has snippets. These are like shortcuts but they actually put in some scaffolding for you. So if we type the letter r then hit Shift + Tab on the keyboard, it creates a chunk but also has placeholders for the label and any options. Our label will be subtraction and for the options, we will just delete that for now and learn about them later. We can come into the chunk itself, and do five minus three. When we knit the document, we should now have another code chunk that has five minus three and results in two. Of course you can put more than one line of code in a chunk and have it compute it all, so let's go ahead and do that. 
+
+## Multi-Line code r + Shift + Tab
+Let's come down here, do r + Shift + Tab and we will make the label multi-line and let's get rid of the options. And let's just put all the code we've written into one chunk. One plus one, four times two. Notice around my plus signs and my subtraction signs, I put a space, but not around the multiplication. That's just personal style. Then we put five minus three. Let's knit the document now. Come down here. And it looks very similar. The way R Markdown works is that it runs a line of code, then immediately gives the result, as if you're doing it in the console in order. So even though we put three lines of code, we should have code result, code result, code result. In R Markdown, any R code that we want to display and/or evaluate, goes inside of chunks. Anything that we can type in the console can go in the chunk and be rendered by R Markdown.
+```{r A_Label, options}
+
+```
+
+# Data Display
+Let's see how data can be loaded into R inside of an R Markdown document and then displayed. So let's make another section called data display. To create a trunk, we will use alt ctrl i, and we will go put in a label called show-data. For this, let's just take a quick look at the diamonds data from the gg plot package. To load that, we type in data(diamonds, package='ggplot2). On the next line, we type in head(diamonds). Now we knit. We scroll down to the bottom, and we see data. Now, it looks a little squashed because our window isn't that wide. If we were to display this in a wider format, it would look a little differently. So, let's open it in the browser. We display it in Chrome, come down to data display, and we see it fits the page quite nicely. This is the way head(diamonds) would be displayed in the console, which is great for instructional purposes when you want your user to see exactly what they would see if they executed code. But other times, we want it to look a little more attractive. To do that, we could use the kable function from the knitr package. So, let's take a look in another trunk. We will call this show-data-2 and we will say knitr::kable. Then inside of there, we will say (head(diamonds)). 
+
+```{r show-data}
+data(diamonds, package='ggplot2')
+head(diamonds)
+```
+
+```{r, show-data2}
+knitr::kable(head(diamonds))
+```
+
+## Using DT::datatable
+Let's knit this. And come down here, and we actually have a very nicely formatted document that is much more attractive aesthetically. Another option is to use the DT package to print out a JavaScript data tables display. Of course, this will be overkill for what we are doing for just six lines of data, but it'll be nice to see. So let's create a new trunk called show-data-3 and say DT::datatable. And the reason I'm doing DT::datatable or knitr::kable is because we don't want to load up the entire package right now just to use this one function. So we're saying package name::function name to access it. In here, we will put head(diamonds)) and knit the document again. We scroll down, and we have this JavaScript-generated html table, which is just more attractive and has better features such as the ability to search. Of course, with six rows of data, it is a little bit of overkill, but it's nice to have. We can be explicit and say render it using kable or render it using datatable, or we can have this be the default behavior. So let's make another trunk here that just does head(diamonds). 
+```{r, show-data3}
+DT::datatable(head(diamonds))
+```
+
+Alt ctrl i to create the trunk. We will call this show-data-4. And yes, each trunk label needs to be unique. We will simply do head(diamonds). If we knit this, it'll look just like the first data frame we printed in the trunk show-data. In order to change the default for when it's not specified, let's go back up to the YAML header. There is an argument to html document called df_print. We will specify, in quotes, kable. Anytime we print just a data frame, it will automatically be wrapped in kable to be displayed nicely. So let's knit the document. 
+
+Let's go all the way to the bottom, and see that this data frame, which we simply called head(diamonds) looks like we had called kable on it because that was done automatically. An alternative, instead of using kable, we could use paged, and this will automatically use data tables anytime we print out a data frame, as we can see right here. Notice it looks a little different than the data table we printed out explicitly. This is because it uses different arguments than the defaults for the data table function. 
+
+There are different ways to print data into an R Markdown document with different levels of attractiveness depending on your purpose. By using intelligent defaults in the YAML header, you can make this automatic and very easy to use.
+
+# Plots
+Including plots in our markdown is as simple as anything else in our markdown. All we need to do is type in a command the same way we would in the console. So let's go to the bottom of our document and create a new section called plots. And then we create a new chunk using alt-control-I, and we will call it simple plot. And here, we'll just use some base graphics, which I normally don't encourage, but for something like this, it's just easier. Say plot one through 10. We knit the document using control-shift-K, and at the very bottom, we have a plot integrated right into the document. 
+
+```{r, simple-plot}
+plot(1:10)
+```
+
+Let's open this up in Chrome. Let's go down to our plots, and let's right click the plot and inspect it. We can see here, this isn't an ordinary image. In regular html, the src part of the img tag points to the file on disk, but in this case, it's actually this long string. All these letters, and numbers, and symbols are the actual image. That's because in normal html, if a document has images, each of those images are a separate file. So if you want to share the html document, you have to share the image files, as well. But our markdown, base 64 encoded our image and embedded it straight into the file. This means if you want to share this file, you share one document, and all the images are included in it automatically, making this a highly portable format. Returning to the editor, creating a plot is as simple as typing in a plotting command, and the beautiful part is that by default, the image of the plot is automatically embedded straight into the document for easy portability.
+
+# Chunk Options
+So far we have just been using chunks with our default behavior. We can specify chunk options that let us customize how they behave. So let's create another chunk and make another plot. To do this, we will use a snippet. Type in r then shift tab. And we will call this another plot. For the options, we will put fig dot cap. Then in quotes, we will just write a simple plot inside of quotes. For the code itself, we will just simply another plot of one through 10. We knit the document, and we will get another plot, a little bit of text under it saying a simple plot. Here it is with the caption. It's not that big a deal, it's a simple option. 
+
+There's many more options we can do. For instance, if this chunk was taking a long time to run, we could use another option which we specified by putting comma, and a new option name. Spaces are optional. And say cache equals true. This means once this chunk has been computed, don't reevaluate it unless it's been changed. We'll save computation time. Running this now won't really save us much time because changing the chunk option changes the chunk and it has to be reevaluated anyway, but it's good to see. Another option I like is echo. By setting echo equals to false, it will no longer display the code, but just the result. So when we knit this, you'll see two charts with no code in between. The code is gone as we expected. There are many options we can set. And we can see them by hitting comma, and then our studio automatically pulls up auto completion for us. And there are many, many options here some of which have worked together, some of which are by themselves. And there's all sorts of ways to customize the chunk. With chunk options, we can fully customize how the chunk is rendered, how it behaves, how it is evaluated. It really opens up a whole realm of possibilities for us.
+```{r another-plot, fig.cap='A simple plot', cache=TRUE, echo=FALSE}
+plot(1:10)
+```
+
+# Set Global Options
+We've seen how to set options for an individual chunk. But some options are global and should be applied to all the chunks. To do this we go to the top of our document, and right after the YAML header, we put a setup chunk. We create a new chunk, and we will call it setup. And for this one we will say include equals false, that way this one is not displayed in the document. You won't see the code, or the results. Chunk options are set using the opts chunk object from the knitr package. So we say, knitr:: opts_chunk, and auto-complete filtered in for us, $set, because we are setting options. 
+
+The first option we set, which will save us some time on repeated knittings, is (cache=TRUE). This will cache all the chunks for us, so we don't need to set it individually. You will also say, fig.align = 'center'). This way, all the plots will be centered, with the viewer panes so narrow, it would be hard to tell the difference, but this would make a bigger deal when we have full screen documents. 
+
+Let's go ahead and knit, and the first time we're doing this, it's still having to evaluate all of the chunks. That's because this is the first time we are caching them, so nothing should change because all we do is cache the chunks, let's knit it again. Notice how much quicker it went through and processed all the chunks, because none of them changed, none of them had to be reevaluated, this can make a big deal when you have complex operations happening in the chunk. 
+
+Any chunk option that can be set for individual chunks can also be set for global chunks. Setting chunk options globally saves you, the author, a lot of effort later on, so you don't have to repeatedly do it for every single chunk. This can lead to a lot of time savings.
+
+# Getting Started with Shiny
+Getting started with Shiny can seem daunting at first. Having to deal with server side and UI side code. This endeavor does not have to be intimidating however, because Shiny can be integrated into RMarkdown with ease. We learn the basic concepts of Shiny, such as user inputs and rendering outputs, all within a single file RMarkdown document.
+
+## Set the Shiny Runtime 
+R Markdown documents, with just a little modification, can easily have Shiny components and be fully interactive for your users. To get started, we're going to create a new Markdown document. 
+
+We do this doing Control + Shift + N, just like before; and we are started with a blank R script. So let's save that as an R Markdown document. Control + S, and we'll save this as RMarkdownShiny.rmd. It asks us do we want to save this as a different type of file, and our answer is yes. 
+
+## Create the YAML
+Our document starts very similar to an ordinary Markdown document with a YAML header. So we put the three dashes and we end with three dashes. The first argument is the title. We'll call it Simple Shiny Document, and we can optionally put an author. We specify the type of document, which is still an HTML document. So it's output html_document. The big difference here is that we need to say runtime is Shiny. So it's just another YAML tag; we do runtime Shiny.
+
+## Shiny document
+And with that one little change, this'll be a Shiny document; and the Shiny package will be loaded automatically for us to use. Let's see what happens when we knit. You could see it says it's loading, and then it goes to the rest of the Markdown building, and we have a document that's says Simple Shiny Document, our title, and Jared P. Lander the author. That's all we should see here. This appears to be a normal HTML file, but the HTML file's never actually rendered to disk. It is generated while the Shiny runtime is active, but as soon as you close this session, that document will disappear. We hit the stop button, and now it is gone. Getting started with Shiny is easy when you incorporate it into your normal R workflow.
+
+# Select Input
+One of the powerful things about Shiny is that it lets you use R code to generate HTML objects, then use the results of those interactively. For our first object we are going to make a drop-down select object that will have multiple values. To illustrate we will make a new section in our brand new document called select input. So put the hashtag, select input. Now we want to use R code so we need to make a chunk with alt control i. We'll give this a label, select dash input. 
+
+## SelectInput
+Select input is a Shiny function which takes the number of arguments. This will get long so we'll break it up on a number of lines. Let's put that closing parentheses in there now. The first argument is the input ID. This is important, it has to be unique, and it will be referenced later when we want to make use of the value assigned by this object. So we will call it example drop-down. And yes, R is case sensitive. The label. 
+
+That is what the object displays to the user, so make it something friendly like, please make a selection. I'll move the cursor to the next line so it's easy to see. We now specify the choices available. Using RStudio I just hit the tab key and it brings up the autocomplete options. This way I don't have to type it myself. So I choose choices, and I'm going to provide a list of values. And I'll put that closing parentheses on its own line. 
+
+```{r select-input}
+selectInput(
+  inputId = 'ExampleDropDown', label = 'Please Make a Selection',
+  choices = list(
+    'value 1' = 1,
+    'value 2' = 2,
+    'value 3' = 3
+  )
+)
+```
+
+## Description of the input values
+We could specify just the values, but I'm going to specify values and labels, which will become apparent why later. For the first option the label will be value one. And it will be equal to the number one. The second option will be value two. And it will be equal to two. And the third option is value three, equal to three. That is what it takes to build a drop-down select. Let's submit the document and see how it looks. This isn't our marked down document so we still see the code. 
+
+If we don't want to see it we could use the chunk option, echo equals false. Let's keep it in there. Here is the drop-down select. It says please make a selection as we specified in the label. And we click the drop-down we see value one, value two, value three. What is interesting about this, is that if we were to run the code actually in the console for the select input, it would generate HTML code. 
+
+All this is doing is actually inserting this HTML code into the marked down document. Nothing else special has happened. We just used our first Shiny function which generated an HTML object. This will allow more interactivity down the road.
+
+## Print the Drop Down List Value
+We've built a drop down select and it works, but we don't have it doing anything. As a simple start, let's print the value of the drop down select to the screen. To do this, we will create a new trunk. We give the label, print select input. Giving labels to your trunks isn't necessary, but it's a good idea. Let's go ahead and print the value of the select input. So someone chooses value one, we will print one. If someone chooses value two, we print two. If they choose value three, we print three. 
+
+## Printing
+Printing is done with the render print function. Say render, print. The object we want to print is the value of the select input. All these inputs are stored in a list called input. And they're stored in slots holding their input ID. So, our select input had an ID of example drop down. So that value is stored in input, dollar, example drop down. That's all it takes to print the value from that select input. So, let's knit the document and see it in action. 
+
+So, by default, value one is chosen. We can change that to value two and it prints two now. We change it to value three, and it prints three. This is a very simple example of a user input affecting the document. Going forward we will see other types of inputs that allow us a whole range of control.
+
+```{r print-select-input, cache=FALSE,echo=FALSE}
+renderPrint(input$ExampleDropDown)
+
+```
+
+# Slider
+Sometimes you want to give your user the ability to select a number between a start point and an end point. That is ideally suited for a slider input. So let's create that. Make a new section. Slider input. And in there, make a new chunk. This chunk will be called slider input. You don't need to have your chunk label so closely aligned to your section labels, it's just working out that way for else. The function is slider input. And much like select input, the first argument is input ID. 
+
+We will call it slider example. For the label, we will say this is a slider. We set the min possible value to zero. And the max possible value to five. And we'll give it a starting value of three by saying value equals three. We knit the document. And we see we have a slider. Of course, all we're doing is dragging the slider. We're not using the output anywhere. This is just to show how the slider works. 
+
+```{r slider-input}
+sliderInput(
+  inputId = 'sliderExample', label = 'This is slider',
+  min=0, max=5, value = 3
+)
+
+```
+
+## wo ended slider
+In the same chunk, let's make a two ended slider. So, gonna give us blank line. We'll say slider input. Input ID equals slider example two. Label equals two ended slider. Min equals zero, max equals 10. Value equals the vector for comma six. This will give us a two sided slider. Come down to the bottom, and we see we have a two sided slider that we are able to move as a unit. Much like all the other objects, if we ran this piece of code in the console, we would get back html code. That's all it's really doing on the front end stuff. It's generating html that can later be used by the backend. The sliders are quick and handy way for the user to specify a value within a given range.
+
+# slider Input
+```{r slider-input-2}
+sliderInput(
+  inputId = 'sliderExample2', label = 'This is a two-ended slider',
+  min=0, max=10, value = c(4,6)
+)
+
+```
+
+# check box input
+Another popular html input is a checkbox. So let's go ahead and create one of those. Start a new section called checkbox input. In this section, we'll put a chunk, and we will call it checkbox input. To create the checkbox, we need to use the function, checkbox input. The first argument to checkbox input is input ID. That we will call check example. For the label, we will call it single checkbox. Let's net the document. We scroll down to the bottom, and we see we have one checkbox which we can check and uncheck. Sometimes, though, you need multiple checkboxes that all go together. 
+```{r single-checkbox}
+checkboxInput(inputId = 'checkExample', 
+              label = 'single check box')
+```
+
+
+## Multiple checkboxes
+To generate multiple checkboxes, we use the function, check box group input. We put the closing parenthesis on its own line. For input ID, we call it check group sample. For the label, we say multiple checkboxes. And for the choices, we will provide a list. And we'll just call it a b and c. Now we net the document. We come to bottom. And we have multiple possible checkboxes. Yes, the text is little offset, but that's just a rendering issue with the browser built into our studio. These functions generate checkboxes. If you're a user, you have to check yes or no.
+
+```{r mulitple-checkbox}
+checkboxGroupInput(
+  inputId = 'Multiple check boxes',
+  label = 'Multiple check boxes',
+  choices = list('A', 'B', 'C')
+)
+
+```
+
+# Radio Buttons
+Sometimes you want to make your user choose between a number of different options. That's where the radio button comes in. Let's create a new section, called radio buttons. Let's create a chunk, which we will call radio-buttons. Radio buttons are created using the radio buttons function. Just like every other input object, the argument is input id. We'll call this radio sample. We give it a label, which will say, "please choose one." Then we give it choices. 
+
+We specify a list of a, b, c. Close the list, close the radio buttons. Then we knit the document. We scroll down to the bottom and we see we have three options of which only one can be chosen at a time. This is, as opposed to the check boxes, where you can click multiple of them. Radio buttons are an easy way to provide a multiple choice answer to your user, where they can only select one answer.
+
+```{r radio-input}
+radioButtons(
+  inputId = 'Radiosample',
+  label = 'Please choose one of the buttons',
+  choices = list('A', 'B', 'C')
+)
+```
+
+# Create date Input
+Working with dates can often be a challenge. But it can be necessary, and there are times when your user needs to input a date. So, let's make it as easy as possible for them using date input. So, let's create a new section of our document called date input. And create that new chunk. We'll use the label date input. The function is aptly named date input. The input ID will be date choice. And the label will be date selector. Let's knit the document. We see a date as already selected. We click on it. It actually brings up a nice pop up allowing you to choose any date such as August 24th. Or you can click forward to some other date. Or click back. Then choose some arbitrary date. It's a nice feature that mimics what you see on websites because again, remember, Shiny is generating html code. Date input allows your user to easily and conveniently select a date. 
+```{r single-date}
+dateInput(inputId = 'dateChoice', label = 'Date selector')
+```
+
+# Selecting 2 dates
+Sometimes you want to give your users the ability to select two dates. So, for that we use date range input. The input ID will be date range choice. And the label will be please select dates. Let's go ahead and knit the document. We scroll down to the bottom. We see we have a start date and an end date. We can choose August 31st, and we can end it on September 13th. It's a way of choosing a start and an end date nice and easily for your user. Notice it's displaying the dates in year/month/day format, which is a good way to store it computationally. But you're user might be more used to month/day/year. 
+
+So, let's create one more date range input that has a formatted month/day/year. And we say date range input. Input ID equals date range choice two. The label will be please select dates. The format will be mm slash dd slash yyyy. That will put it in month/day/year format. We'll submit the document. We come down to the bottom and we see it's eight slash 15 slash 2017. Eight slash 15 slash 2017. We can click them, change the date, and it will be displayed in nice familiar formats. Date input and date range input allow a nice, convenient way for you're user to choose a date or dates from the familiar calendar format.
+
+```{r multiple-date}
+dateRangeInput(inputId = 'DateRangeChoice', label = "Please select dates")
+dateRangeInput(inputId = 'DateRangeChoice2', label = 'Please select dates', 
+               format = 'mm/dd/yyyy')
+```
+
+# Text Input
+In cases where you want your user to supply freeform text, you use the text input function. Let's create a new section, Text Input. Make a chunk, which we will call text-input. The function is text input. For the input ID, we say text sample. For the label, we'll just say, "space to enter text." Let's knit the document. Come to the bottom, and we have a place to type in text. And yes, we have to type in, "Hello, world." What programming example would be complete without that? 
+
+```{r text-input}
+textInput(inputId = 'Textsample', label = 'Space to Enter text')
+```
+
+
+## Block of Text
+Sometimes, though, one line of text isn't enough. They need a block of text, an area of text. For that we use text area input. We type in the function, text area input. It's very similar to text input. Input ID, we will call, text area sample. For the label, we will say, "Area to enter a lot of text." Let's knit the document. We now have a larger text box. Of course in here, you an type a longer sentence to fit in the box. 
+
+```{r text-input-2}
+textAreaInput(inputId = 'TextAreasample', label = 'Area to Enter a lot of text')
+```
+
+##Obfuscate text
+There are times when you want to obfuscate what they enter, such as a password. For that, we use password input. Same exact format, inputid="Passwordsample" and label we will say, "Protect your password." We knit the document. We now have a password box where the password is obscured. There are numerous ways to enter freeform text, including a single line text input, a multi-line text area input, and a password input. This gives you flexibility in how you let your users input text.
+
+
+```{r text-input-3}
+passwordInput(inputId = 'passwordSample', label = 'Protect your password')
+```
+
+# Print Text
+There are multiple ways to print text to the screen based on user input. There is render print and render text. So let's look at the differences. To see this let's create another text input so it's easy for us to get to. We'll create a new section called render text. And let's create a text input. We'll set the label to text input testing. And we will say text input the input ID will be, text to see. And the label will be, please enter some text. We render the document now we will have a new text input. Let's print that out. 
+
+Let's do it two different ways. Let's use the render print function and the render text function and see how they're different. So we create a new chunk and we'll call it render text and let's do both. Say render print and we're going to print whatever the user typed. So we need to print out input dollar sign text to see. 
+```{r text-input-testing}
+textInput(inputId = 'TextToSee', label = 'Please enter some text')
+```
+
+```{r render-text,cache=FALSE}
+renderPrint(input$TextToSee)
+```
+
+## Render text
+Before we run it, let's also use, render text. We're rendering the same exact thing, input dollar sign text to see. These two functions are very similar but they're going to behave slightly differently. Let's knit the document. To start we have nothing in the text box. So render print generates empty strings. Where as render text doesn't print anything, we can see that there's nothing below it in the document. Let's type in hello there. 
+
+Hello there is printed out under render print and we scroll down it now says hello there underneath render text. See how they're different? Render print, prints out the text, the way it looks in the console. It's a vector with quotes and then the actual text. And render text prints it out as if you were rendering to an html document. 
+
+So if you're trying to recreate console output you would want to use render print. But if you're trying to print out nice looking text that looks like any other text. You would use render text. Both render print and render text allow you to print to the screen but in two different ways, depending on your needs.
+
+```{r render-text-2,cache=FALSE, echo=TRUE}
+renderText(input$TextToSee)
+```
+And this is when the echo is false: 
+```{r render-text-3,cache=FALSE, echo=FALSE}
+renderText(input$TextToSee)
+```
+
+
+# Display data
+Sometimes you want to display tabular data. If the data's small enough, you can just render a static table, using renderTable. So let's take a look. We'll make a new section. We'll call it Render Data. And the chunk we created, we will call render-data. The simplest, static way to render data is with the renderTable function. 
+
+We will just use the mtcars data to keep it simple. Let's knit the document. We have a nicely formatted table which looks similar to the output of the table function, showing the mtcars dataset. This is nice, and it's okay for a small dataset, but it isn't that attractive or interactive at all. 
+```{r render-data,cache=FALSE}
+renderTable(mtcars)
+```
+
+## Interactive Table
+To make an interactive table, let's use the renderDataTable function. In the same chunk you will say renderDataTable. And the argument will again be mtcars. We've come to the end of our document, and we see that the data has now been rendered using a Javascript DataTables table. And we can see that the data's now been rendered using DataTables, which allows us to search for instance, for 18.7, whatever value you'd like. It also lets us sort the data according to cylinder, or according to MPG or the other direction. It is very handy. 
+
+## RenderDataTable
+This is the renderDataTable function built into Shiny, but has a better replacement. That is the renderDataTable function built into the DT package. So let's see how that looks. We say DT colon colon, renderDataTable. Then we pass it the same dataset. Let's knit the document again. We scroll down, past the previous data table to the newest one. You can see it looks a little different has some different defaults. It's just arranged a little differently, and in general it acts a little better. And it's just a slightly better function for accomplishing the same thing.It smartly only shows a few rows at a time, which we can adjust. We can page through. 
+
+It is a smarter way of working with data frames, and it is generally recommended to use the renderDataTable function from DT rather than from Shiny. Just to make sure you are using the right function, it is smart to do DT colon colon renderDataTable. Of course here, we're rendering static data frames. It'll be more powerful if you are rendering a data frame that results from some user input. If you're displaying just a small amount of data, use renderTable. 
+
+If you're displaying a lot of data, use renderDataTable from the DT package. It looks better, it's interactive, and the great part is all the Javascript that powers this table is embedded right in the document so you don't have to worry about any external dependencies.
+
+```{r render-data-2,cache=FALSE}
+renderDataTable(mtcars)
+DT::renderDataTable(mtcars)
+```
+
+# Render and Control Plots
+R is very well known for it's strong plotting capabilities. So of course, we can incorporate that into Shiny. So let's create a new section called, Plotting. For this example, we are going to use simple base graphics just to make it easy even though I always recommend using ggplot or one of the new html widgets packages. So let's make a chunk, we'll call it render-plot. In this chunk, we are going to render a histogram of the mtcars mile per gallon information. So we use the function renderPlot, and we pass through that the histogram using the hist function of mtcars dollar mpg. Close the histogram, close renderPlot. Now knit the document. 
+
+Come to the bottom and we see a histogram of the miles per gallon. But we've just rendered a static histogram. We could have done that with a regular markdown document. So let's allow the user to choose which column to plot and how many breaks to put into the histogram. The first thing we need to do, is create the inputs for the user to make these selections. We create a new chunk, we'll call it plot-options. The first thing is a select input choosing from the columns. So we say selectInput. 
+
+For the inputId we choose PlotColumn. For the label we say, Choose a column. For the choices, we supply the argument, names of mtcars. This will create a select dropdown, listing all the columns, let's take a look. We have this nice dropdown, which isn't doing anything just yet.
+
+```{r render-plot,cache=FALSE}
+renderPlot(hist(mtcars$mpg))
+```
+
+## Using a slider input
+In the same chunk, let's create a slider input so the user can choose somewhere between five and 50 breaks. We say, sliderInput, the inputId will be Breaks. The label will be, Choose number of breaks. The minimum number allowed will be five, and the maximum will be 50, and we'll have it preset at 30. Let's render the document again. We come to the bottom, not only do we still have our dropdown, we have a new slider.
+
+Now that we have these new inputs, let's make a histogram that is controlled by the user. So we make a new chunk and we call it user-plot. And it starts the same, renderPlot, we'll open and close a parentheses so we know what we're doing, and here we will say, hist, open and close this parentheses. We want to plot a column based on input dollar sign plot column. So we say, input cars, square bracket, leave a blank spot and put a comma in to say we want all the rows, and then for the column selection we say input dollar PlotColumn, then we close the square brackets. 
+
+There is an argumentative hist called breaks, that let's you set the number of breaks. We will supply this with input dollar Breaks. Then as a user changes the breaks, or changes the column, the plot will change. Let's knit the document and see how it looks. We scroll down to the bottom, we see we have this nice histogram, let's make more breaks, the plot changes. Let's make fewer breaks, the plot changes again. 
+
+Let's change the column, vs is more of a discrete variable so it wouldn't make as much sense, but it still plots correctly. Let's try displacement. 
+
+This is what happens when you have 16 breaks versus a plot when you have 39 breaks. Plotting is made easy with Shiny, but it is made more powerful with user-controlled inputs.
+
+
+```{r plot-options}
+selectInput(
+  inputId = 'PlotColumn', 
+  label = 'Choose a Column',
+  choices = names(mtcars)
+)
+
+sliderInput(
+  inputId = 'Breaks',
+  label = 'choose a number of breaks',
+  min = 5, max = 50, value = 30
+)
+```
+
+```{r user-plot,cache=FALSE}
+renderPlot(hist(mtcars[, input$PlotColumn], breaks = input$Breaks))
+```
+
+# Reacactive Exressions
+The underpinning of Shiny is reactivity. This is how objects are updated based on changes in other objects. We cover the basics of what is necessary to avoid trouble while building Shiny apps.
+
+## Using Reactive Inputs
+
+A key element of shiny is reactivity. Essentially that means when one things changes, something else changes too. We've seen this in action, but let's explore it in a little more detail. 
+
+Let's make another text input. We'll call the chunk, text input. And we'll use the text input function. Input ID will be text input. And the label will be, please enter some text. And we can give text to populate the box to start with by saying value equals starting text. 
+```{r text-input-render,cache=FALSE}
+textInput(inputId = "TextInput", label = "Please enter some text",
+  value='Starting Text'
+)
+```
+
+In another chunk let's render that text, as text. Not render print as we saw before, but render text so it looks nice. We'll get a new chunk and we will call it text render. And we will use render text. To render, input dollar text input. Let's knit the document. The input field has the text, starting text, written in it. So that is showing after render text. Let's change what this says. 
+
+```{r, text-render,cache=FALSE}
+renderText(input$TextInput)
+```
+
+Let's type in, hello world, again. With the appropriate comma and exclamation mark. And that renders in the document. Even though we have seen this before, the point is to illustrate input and reactivity. Any item stored in the input is reactive. So that means if that item changes, anything it depends upon changes. So the render text function, which depends upon input dollar sign text input, will change anytime this text input changes. And that is the heart of reactivity.
+
+# Expression syntax
+So far we have seen how the input list is reactive. But there are times when we want an intermediate variable to be reactive also. So first, we're gonna look at the naive approach of doing this and see how it fails. So let's create a new section, call it Naive Reactivity. 
+
+Let's create a new chunk, that we call date-input. And let's use the dateInput function to create it. The inputId will be DateField. And the label will be Select a Date. In the same chunk let's render that text. And that is as simple as doing renderText of input dollar DateField. 
+
+Let's knit the document and see how it looks. It comes back as 17,393. That's because dates are stored as integers for the number of days since January 1, 1970. That isn't really what we want. So we want to use a few functions from the lubridate package and sprintf to display it nicely. So let's see what is involved. So let's start a new chunk. We will call it display-date. We are going to want to do renderText of sprintf, build the string, extract the month, the day and the year, and it's going to get a little messy. So what you might want to do is save the date that is stored in DateField to an intermediate variable, one that we'll call theDate. So we will say theDate gets input dollar DateField. Then we will attempt to render this. We say renderText of sprintf. 
+
+```{r date-input, cache=FALSE}
+ dateInput(inputId = 'DateField', label = "Select a date")
+ renderText(input$DateField)
+```
+ 
+```{r load_lubridate,echo=FALSE}
+ library(lubridate)
+```
+
+Let's drop down a line, close a parenthesis for sprintf, and close it for renderText. The first argument to sprintf is a string. We want it to be month space day comma space year. So we put percent s as a placeholder, space, percent s as the next placeholder, comma, space, percent s as the next placeholder, close quotes. We still have this tool tip trying to help us, so we'll just hit escape to get rid of it. The next few functions that we'll want to use are all from the lubridate package. We could use each function as lubridate, colon, colon function name. Or we can just load lubridate package in its own chunk to make things easy. So let's do that. Let's go up in between the two existing chunks and make a new chunk called load-lubridate. We're putting it in its own chunk to be very organized, that we don't necessarily have to be. Let's type in lib tab, because that activates the library snippet. 
+
+A little shortcut to make typing easier. Here we type in lubridate, which auto-complete helps. Back in sprintf, we want to extract the month from the date. So we say month of theDate, comma, label equals true, because we want it to print out as a name, not as a number. And abbr equals false. This means, don't abbreviate it as Jan., Feb., Mar. Say January, February, March. That'll get inserted into the first percent s. Then we extract the day by saying day of theDate. That gets inserted into the second sprintf. Then, we extract the year by saying year of theDate. And that goes into the third percent s Let's go ahead and knit this and see what happens. We get an error. The operation is not allowed without an active reactive context. You tried to do something that can only be done from inside a reactive expression or observer. What exactly does that mean? 
+
+This happened because we saved this input, which is reactive itself, to an ordinary variable. We then tried to use that ordinary variable, like it was a regular variable, as we would in any other R program, inside of renderText. The problem is, renderText only knows to change if it has some reactive value on the inside be like hey, I changed, make sure you change. But the date is an ordinary variable, therefore renderText does not know to change itself, and it generates an error. Which is nice. 
+
+It is better to get an error here at build time than it is at run time, when someone else could be using this. This will cause us trouble and we need to fix it. So let's tell this chunk not to be evaluated. Let's say comma eval equals false. And we should even put a note to ourselves above it saying this is not the right way to do this. Let's run this now. By setting eval equals false, it will display this, but it won't actually try to evaluate it, and therefore we won't get an error. It is very important to use the Shiny components correctly and know when reactivity comes into play, as we will see next.
+
+Let's create a new section called correct reactivity. Let's make a new chunk called display date two. Remember, it's important that each of our chunks be unique. This is going to be very similar to the previous chunk where we saved the input to a placeholder variable and we rendered the text. But we're going to do it a little bit differently. We'll say the date gets reactive of input dollar date field. This means we're not saving the input dollar date field to the date, but we're saving the reactive expression to the date. And this will incorporate any changes to input dollar date field. That means if input dollar date field changes, the date changes, anything using the date will also change. So let's go ahead and build up that render text again. 
+
+```{r display-date, cache=FALSE}
+theDate <- reactive(input$DateField)
+
+renderText(sprintf(
+  '%s %s, %s',
+  month(theDate(), label=TRUE, abbr=FALSE),
+  day(theDate()),
+  year(theDate())
+))
+
+```
+It's gonna be very similar, but a slight and important difference. Let's say render text that takes s print f. We'll close the parenthesis after leaving a blank line. Still the same string. Percent s base, percent s comma space percent s. For recalling the month function, we're saying the date open close parentheses. That's because reactive expressions aren't variables. They aren't regular objects. They're functions, essentially. So anytime you want to reference it, you have to treat it as if it's a function with no arguments to it, just the date, open close parentheses. Otherwise, the rest of this stays the same. We say label equals true. Abbr equals false. We say day of the date, again, open close parentheses. 
+
+And we say year of the date. And again, don't forget the parentheses. Now, let's try rendering the document. We come to the bottom. And if we change the date up here in the date selector, the render text will change as well. That's because the render text function relies on the date, and the date relies on the reactive expression which is including input dollar date field. It is very important to use reactivity correctly because it can make or break your document.
+
+# The reactivity Graph
+
+To get a sense of the role of activity, it's good to look at every activity graph. As you make a more complicated app, we can see all the interwoven connections, what depends on them, what else. As an example, let's look at a test app that I happen to have saved in our directory. Let's make a new R script since this is just a bit of code. We could type this in the console, but it'll be helpful to see the text on screen. We say, library of ShinyTester. 
+```{r}
+#library(ShinyTester)
+#ShinyHierarchy('../risk_network/app.R')
+```
+
+It's a package for helping you build Shiny apps. There's a function called, ShinyHierarchy, and if you give it a directory, holding a Shiny app, it will display a nice graph. So this graph, we can see that we have red nodes representing inputs. The blue nodes represent reactive objects. And the yellow nodes represent outputs. They are what the user sees in the end. And you can quickly hover over this and see what inputs affect which reactive values, and from those, which reactive values affect which outputs, and help us give you a sense for what could be a complex app. For instance, this input affects two different reactive values. 
+
+We come to the first reactive value, this reactive value affects three other reactive values and it affects five outputs. So we're saying is, if that input changes, this reactive changes, these other reactives change, and the outputs change. It's very important to have a sense for what objects affect other objects and the chain reaction that can create.
+

@@ -1,5 +1,6 @@
 require(shiny)
 require(visNetwork)
+require(magrittr)
 require(dplyr)
 
 # Load nodes data from CSV
@@ -12,17 +13,15 @@ edges <- as.data.frame(edgeData)
 
 
 
-ui <- fluidPage(
+ui <- fillPage(
     titlePanel("Risk Assessment - Cyber Topology"),
     #create two tabs
     tabsetPanel(id="theTabs", 
                 #Add the Cyber Assets Tab.
                tabPanel("Cyber Assets", tableOutput("AssetList"), value = "table"),
                 #Add the Risk View topography Tab.
-               tabPanel("Risk View", visNetworkOutput("network_proxy_nodes", width = "800px", height = "800px"), value = "network_proxy_nodes")
-                )
-
-)
+               tabPanel("Risk View", visNetworkOutput("network_proxy_nodes"), value = "network_proxy_nodes")
+                ))
 
 server <- function(input, output) {
 
@@ -36,7 +35,7 @@ output$AssetList = renderTable({
 })
 
   output$network_proxy_nodes <- renderVisNetwork({
-                                visNetwork(nodes, edges, height = "1000px", width = "200%" ) %>% visPhysics(stabilization = TRUE) %>% visOptions(highlightNearest = TRUE) %>%  visOptions(nodesIdSelection = TRUE) %>% visLegend() %>% visOptions(manipulation = TRUE)
+                                visNetwork(nodes, edges) %>% visPhysics(stabilization = TRUE) %>% visOptions(highlightNearest = TRUE) %>%  visOptions(nodesIdSelection = TRUE) %>% visLegend() %>% visOptions(manipulation = TRUE)
                                 })
 }
 
