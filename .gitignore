@@ -2,3 +2,5 @@
 .Rhistory
 .RData
 .Ruserdata
+#Ignore all cache folders
+How_To_Guide_For_RMarkdown/RMarkdown-How_To_Guide_cache$
